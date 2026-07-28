@@ -1,0 +1,7 @@
+name = "ss-sethi-push"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# The Firebase service-account JSON is stored as a secret, NOT here:
+#   npx wrangler secret put FIREBASE_SERVICE_ACCOUNT
+# (or add it in the Cloudflare dashboard → Worker → Settings → Variables and Secrets)
