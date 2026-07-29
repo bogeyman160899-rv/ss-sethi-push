@@ -53,7 +53,12 @@ export default {
           message: {
             token: t.token,
             notification: { title, body },
-            webpush: { fcm_options: { link: url || "/" }, notification: { icon: "/icon-192.png" } },
+            // For WEB delivery FCM uses webpush.notification to display, so it
+            // must carry the title/body (icon-only shows nothing on iOS).
+            webpush: {
+              fcm_options: { link: url || "/" },
+              notification: { title, body, icon: "/icon-192.png", badge: "/icon-192.png" },
+            },
           },
         }),
       });
