@@ -52,13 +52,12 @@ export default {
         body: JSON.stringify({
           message: {
             token: t.token,
-            notification: { title, body },
-            // For WEB delivery FCM uses webpush.notification to display, so it
-            // must carry the title/body (icon-only shows nothing on iOS).
-            webpush: {
-              fcm_options: { link: url || "/" },
-              notification: { title, body, icon: "/icon-192.png", badge: "/icon-192.png" },
-            },
+            // DATA-only: no `notification` field, so the service worker's
+            // onBackgroundMessage fires and shows the banner itself. This is
+            // the reliable path on iOS PWAs (notification messages don't
+            // reliably trigger display there).
+            data: { title, body, url: url || "/" },
+            webpush: { headers: { Urgency: "high", TTL: "86400" } },
           },
         }),
       });
